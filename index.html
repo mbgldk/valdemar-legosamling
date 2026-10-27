@@ -1,0 +1,199 @@
+<!doctype html><html lang="da"><head><meta charset=utf8><meta name=viewport content="width=device-width,initial-scale=1,viewport-fit=cover"><style>:root{color-scheme:light;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}html{scroll-padding-top:env(safe-area-inset-top,0px)}body{margin:0;padding:0;font:14px -apple-system,BlinkMacSystemFont,sans-serif;background:#fff;color:#000}img{max-width:100%}[hidden]:not([hidden=until-found i]){display:none!important}</style></head><body>
+<title>Valdemars Legosamling</title>
+<meta name="robots" content="noindex, nofollow">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@600;800&family=Atkinson+Hyperlegible:wght@400;700&display=swap">
+<style>
+/* Layout: klodsfarvet top med knopper → "Har han den?"-søgning → temachips → kortgitter (2 kolonner på mobil, 3-4 på iPad) */
+:root{
+  --bg:#F3F6FA; --card:#FFFFFF; --ink:#18202E; --muted:#5B6578; --line:#DDE3EC;
+  --red:#D3262E; --red-ink:#FFFFFF; --yellow:#FFC93C; --blue:#1F6FD6; --green:#2E9E5B;
+  --t-city:#DCEAFD; --t-duplo:#FDE0D6; --t-creator:#FFF1C7; --t-technic:#E4E7EC; --t-andet:#DDF3E4;
+  --c-city:#1F6FD6; --c-duplo:#D9512C; --c-creator:#B98500; --c-technic:#5B6578; --c-andet:#2E9E5B;
+  --ok-bg:#DDF3E4; --ok:#1E7A45; --no-bg:#FFF1C7; --no:#8A6300;
+  --display:"Baloo 2","Arial Rounded MT Bold",system-ui,sans-serif;
+  --body:"Atkinson Hyperlegible",system-ui,-apple-system,"Segoe UI",sans-serif;
+}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){
+  --bg:#121722; --card:#1C2331; --ink:#EEF2F8; --muted:#A3ADBF; --line:#2C3547;
+  --red:#C8242C; --yellow:#FFC93C; --blue:#5C9DF0; --green:#4CC17E;
+  --t-city:#1C2E4A; --t-duplo:#43271F; --t-creator:#3D3317; --t-technic:#2A303C; --t-andet:#1C3A29;
+  --c-city:#8AB8F5; --c-duplo:#F29A7E; --c-creator:#F2C94C; --c-technic:#B5BDCB; --c-andet:#7FD6A2;
+  --ok-bg:#1C3A29; --ok:#8BE0AC; --no-bg:#3D3317; --no:#F2C94C; color-scheme:dark}}
+:root[data-theme="dark"]{
+  --bg:#121722; --card:#1C2331; --ink:#EEF2F8; --muted:#A3ADBF; --line:#2C3547;
+  --red:#C8242C; --yellow:#FFC93C; --blue:#5C9DF0; --green:#4CC17E;
+  --t-city:#1C2E4A; --t-duplo:#43271F; --t-creator:#3D3317; --t-technic:#2A303C; --t-andet:#1C3A29;
+  --c-city:#8AB8F5; --c-duplo:#F29A7E; --c-creator:#F2C94C; --c-technic:#B5BDCB; --c-andet:#7FD6A2;
+  --ok-bg:#1C3A29; --ok:#8BE0AC; --no-bg:#3D3317; --no:#F2C94C; color-scheme:dark}
+
+body{background:var(--bg);color:var(--ink);font-family:var(--body);font-size:16px;line-height:1.45}
+.wrap{max-width:1100px;margin:0 auto;padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px))}
+
+/* Toppen: en rød klods set ovenfra */
+.top{background:var(--red);color:var(--red-ink);position:relative;padding-block:28px 26px;
+  background-image:radial-gradient(circle at 50% 50%,rgba(255,255,255,.16) 0 9px,rgba(0,0,0,.10) 10px 11px,transparent 12px);
+  background-size:34px 34px;background-position:6px 6px}
+.top h1{font-family:var(--display);font-weight:800;font-size:clamp(2.1rem,7vw,3.4rem);line-height:1;margin:0;text-wrap:balance;letter-spacing:-.01em;text-shadow:0 3px 0 rgba(0,0,0,.18)}
+.top .sub{margin:6px 0 0;font-size:.95rem;opacity:.92}
+.stats{display:flex;flex-wrap:wrap;gap:10px;margin-top:20px}
+.stat{background:var(--yellow);color:#18202E;border-radius:10px;padding:8px 14px 6px;box-shadow:0 4px 0 rgba(0,0,0,.22);min-width:0}
+.stat b{display:block;font-family:var(--display);font-weight:800;font-size:1.9rem;line-height:1;font-variant-numeric:tabular-nums}
+.stat span{font-size:.78rem;text-transform:uppercase;letter-spacing:.06em;font-weight:700}
+
+/* Søg */
+.tools{display:grid;gap:14px;padding-block:22px 6px}
+.search label{display:block;font-family:var(--display);font-weight:800;font-size:1.25rem;margin-bottom:6px}
+.search-row{display:flex;gap:8px}
+#q{flex:1;min-width:0;font:inherit;font-size:1.1rem;padding:13px 14px;border-radius:12px;border:2px solid var(--line);background:var(--card);color:var(--ink)}
+#q:focus{outline:3px solid var(--blue);outline-offset:1px;border-color:transparent}
+.hint{font-size:.85rem;color:var(--muted);margin:6px 0 0}
+#svar{border-radius:12px;padding:12px 14px;font-weight:700;font-size:1.02rem}
+#svar.ja{background:var(--ok-bg);color:var(--ok)} #svar.nej{background:var(--no-bg);color:var(--no)}
+
+.bar{display:flex;flex-wrap:wrap;gap:10px;align-items:center;justify-content:space-between}
+.chips{display:flex;flex-wrap:wrap;gap:8px}
+.chip{font:inherit;font-weight:700;font-size:.95rem;border:2px solid var(--line);background:var(--card);color:var(--ink);border-radius:999px;padding:7px 14px;cursor:pointer;min-height:40px}
+.chip[aria-pressed="true"]{background:var(--ink);color:var(--bg);border-color:var(--ink)}
+.chip:focus-visible,.btn:focus-visible,select:focus-visible{outline:3px solid var(--blue);outline-offset:2px}
+.chip:disabled{opacity:.4;cursor:default}
+.chip i{font-style:normal;opacity:.65;font-variant-numeric:tabular-nums;margin-left:4px}
+select{font:inherit;font-size:.95rem;padding:8px 10px;border-radius:10px;border:2px solid var(--line);background:var(--card);color:var(--ink);min-height:40px}
+.count{font-size:.9rem;color:var(--muted);margin:14px 0 10px}
+#ryd{font:inherit;font-weight:700;font-size:1rem;border:0;border-radius:12px;padding:0 16px;min-height:48px;background:var(--ink);color:var(--bg);cursor:pointer}
+#ryd:focus-visible{outline:3px solid var(--blue);outline-offset:2px}
+#q::-webkit-search-cancel-button{display:none}
+
+/* Kort */
+.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(165px,1fr));gap:14px;padding-bottom:40px}
+@media (min-width:700px){.grid{grid-template-columns:repeat(auto-fill,minmax(230px,1fr));gap:18px}}
+.card{background:var(--card);border-radius:16px;overflow:hidden;display:flex;flex-direction:column;box-shadow:0 1px 0 var(--line),0 6px 18px rgba(20,30,50,.06)}
+.pic{background:var(--tint);aspect-ratio:4/3;max-width:100%;position:relative;overflow:hidden}
+.pic img{position:absolute;inset:10px;width:calc(100% - 20px);height:calc(100% - 20px);max-width:none;object-fit:contain;filter:drop-shadow(0 6px 6px rgba(0,0,0,.12))}
+.brick{position:relative;align-self:flex-start;margin-top:4px;background:var(--yellow);color:#18202E;font-family:var(--display);font-weight:800;font-size:1.05rem;line-height:1;padding:8px 10px 6px;border-radius:5px;box-shadow:0 3px 0 rgba(0,0,0,.2);font-variant-numeric:tabular-nums}
+.brick::before{content:"";position:absolute;top:-5px;left:8px;width:10px;height:5px;border-radius:3px 3px 0 0;background:inherit;box-shadow:16px 0 0 var(--yellow)}
+.info{padding:12px 14px 14px;display:flex;flex-direction:column;gap:6px;flex:1;min-width:0}
+.name{font-family:var(--display);font-weight:800;font-size:1.12rem;line-height:1.15;margin:0;text-wrap:balance}
+.meta{display:flex;flex-wrap:wrap;gap:6px 10px;align-items:center;font-size:.88rem;color:var(--muted)}
+.tag{color:var(--tc);background:var(--tint);font-weight:700;border-radius:999px;padding:2px 9px;font-size:.8rem}
+.dele{font-variant-numeric:tabular-nums}
+.dele b{color:var(--ink)}
+.btn{margin-top:auto;display:flex;align-items:center;justify-content:center;gap:6px;text-decoration:none;font-weight:700;font-size:.92rem;background:var(--blue);color:#fff;border-radius:10px;padding:10px 8px;min-height:44px}
+.btn:hover{filter:brightness(1.08)}
+.empty{grid-column:1/-1;text-align:center;color:var(--muted);padding:40px 10px}
+footer{color:var(--muted);font-size:.85rem;padding-block:0 32px}
+@media (max-width:420px){.name{font-size:1rem}.info{padding:10px 11px 12px}.btn{font-size:.85rem}}
+@media (prefers-reduced-motion:no-preference){.card{transition:transform .15s}.card:hover{transform:translateY(-3px)}}
+</style>
+
+<header class="top">
+  <div class="wrap">
+    <h1>Valdemars LEGO</h1>
+    <p class="sub">Alle de sæt, Valdemar har bygget. Opdateret 27. oktober 2026.</p>
+    <div class="stats">
+      <div class="stat"><b id="sSaet">0</b><span>sæt</span></div>
+      <div class="stat"><b id="sDele">0</b><span>klodser i alt</span></div>
+      <div class="stat"><b id="sStor">0</b><span>største sæt</span></div>
+    </div>
+  </div>
+</header>
+
+<main class="wrap">
+  <section class="tools">
+    <div class="search">
+      <label for="q">Har Valdemar den?</label>
+      <div class="search-row"><input id="q" type="search" inputmode="search" autocomplete="off" placeholder="Skriv nummeret på æsken eller et navn"><button id="ryd" type="button" hidden>✕ Ryd</button></div>
+      <p class="hint">Til gavekøb: sætnummeret står på æsken, fx 60337.</p>
+    </div>
+    <div id="svar" role="status" hidden></div>
+    <div class="bar" id="bar">
+      <div class="chips" id="chips"></div>
+      <select id="sort" aria-label="Sortér">
+        <option value="nyeste">Nyeste først</option>
+        <option value="dele">Flest klodser</option>
+        <option value="nr">Sætnummer</option>
+        <option value="navn">Navn A–Å</option>
+      </select>
+    </div>
+  </section>
+  <p class="count" id="count"></p>
+  <section class="grid" id="grid"></section>
+</main>
+<footer class="wrap">Billeder og vejledninger: lego.com. Siden laves automatisk ud fra Legosamling.xlsx.</footer>
+
+<script>
+const SETS = [{"nr": "77248", "navn": "BWT Alpine F1 Team A524-racerbil", "tema": "Speed Champions", "aar": 2025, "dele": 258, "img": "img/77248.webp"}, {"nr": "76923", "navn": "Lamborghini Lambo V12 Vision GT-superbil", "tema": "Speed Champions", "aar": 2024, "dele": 230, "img": "img/76923.webp"}, {"nr": "71049", "navn": "F1-samlerracerbiler", "tema": "Andet", "aar": 2025, "dele": 29, "img": "img/71049.webp"}, {"nr": "60512", "navn": "Vogn til mountainbike-eventyr", "tema": "City", "aar": 2026, "dele": 260, "img": "img/60512.webp"}, {"nr": "60499", "navn": "Lufthavnsbrandbil", "tema": "City", "aar": 2026, "dele": 691, "img": "img/60499.webp"}, {"nr": "60490", "navn": "Sneplov", "tema": "City", "aar": 2026, "dele": 263, "img": "img/60490.webp"}, {"nr": "60472", "navn": "Skrotplads med biler", "tema": "City", "aar": 2025, "dele": 871, "img": "img/60472.webp"}, {"nr": "60469", "navn": "Hovedbanegård", "tema": "City", "aar": 2025, "dele": 752, "img": "img/60469.webp"}, {"nr": "60455", "navn": "Politimotorcykel på forbryderjagt", "tema": "City", "aar": 2025, "dele": 65, "img": "img/60455.webp"}, {"nr": "60452", "navn": "Donutvogn", "tema": "City", "aar": 2025, "dele": 196, "img": "img/60452.webp"}, {"nr": "60451", "navn": "Ambulance", "tema": "City", "aar": 2025, "dele": 184, "img": "img/60451.webp"}, {"nr": "60448", "navn": "Rød sportsvogn", "tema": "City", "aar": 2025, "dele": 109, "img": "img/60448.webp"}, {"nr": "60443", "navn": "F1-pitstop og pitcrew med Ferrari-bil", "tema": "City", "aar": 2025, "dele": 322, "img": "img/60443.webp"}, {"nr": "60439", "navn": "Rumlaboratorium", "tema": "City", "aar": 2024, "dele": 560, "img": "img/60439.webp"}, {"nr": "60431", "navn": "Rumkøretøj og fremmed livsform", "tema": "City", "aar": 2024, "dele": 311, "img": "img/60431.webp"}, {"nr": "60430", "navn": "Intergalaktisk rumskib", "tema": "City", "aar": 2024, "dele": 240, "img": "img/60430.webp"}, {"nr": "60422", "navn": "Havnefront med fragtskib", "tema": "City", "aar": 2024, "dele": 1226, "img": "img/60422.webp"}, {"nr": "60420", "navn": "Gul gravemaskine", "tema": "City", "aar": 2024, "dele": 633, "img": "img/60420.webp"}, {"nr": "60413", "navn": "Brandslukningsfly", "tema": "City", "aar": 2024, "dele": 478, "img": "img/60413.webp"}, {"nr": "60410", "navn": "Brandslukningsmotorcykel", "tema": "City", "aar": 2024, "dele": 57, "img": "img/60410.webp"}, {"nr": "60409", "navn": "Gul mobil byggekran", "tema": "City", "aar": 2024, "dele": 1116, "img": "img/60409.webp"}, {"nr": "60408", "navn": "Biltransport med sportsvogne", "tema": "City", "aar": 2024, "dele": 998, "img": "img/60408.webp"}, {"nr": "60407", "navn": "Rød dobbeltdækker-turistbus", "tema": "City", "aar": 2024, "dele": 384, "img": "img/60407.webp"}, {"nr": "60405", "navn": "Redningshelikopter", "tema": "City", "aar": 2024, "dele": 226, "img": "img/60405.webp"}, {"nr": "60404", "navn": "Burgervogn", "tema": "City", "aar": 2024, "dele": 194, "img": "img/60404.webp"}, {"nr": "60402", "navn": "Blå monstertruck", "tema": "City", "aar": 2024, "dele": 148, "img": "img/60402.webp"}, {"nr": "60383", "navn": "El-sportsvogn", "tema": "City", "aar": 2023, "dele": 95, "img": "img/60383.webp"}, {"nr": "60376", "navn": "Polarforsker-snescooter", "tema": "City", "aar": 2023, "dele": 70, "img": "img/60376.webp"}, {"nr": "60367", "navn": "Passagerfly", "tema": "City", "aar": 2023, "dele": 913, "img": "img/60367.webp"}, {"nr": "60365", "navn": "Højhus", "tema": "City", "aar": 2023, "dele": 688, "img": "img/60365.webp"}, {"nr": "60351", "navn": "Raketaffyringscenter", "tema": "City", "aar": 2022, "dele": 1010, "img": "img/60351.webp"}, {"nr": "60341", "navn": "Vælte-stuntudfordring", "tema": "City", "aar": 2022, "dele": 117, "img": "img/60341.webp"}, {"nr": "60337", "navn": "Eksprestog", "tema": "City", "aar": 2022, "dele": 764, "img": "img/60337.webp"}, {"nr": "60336", "navn": "Godstog", "tema": "City", "aar": 2022, "dele": 1153, "img": "img/60336.webp"}, {"nr": "60335", "navn": "Togstation", "tema": "City", "aar": 2022, "dele": 907, "img": "img/60335.webp"}, {"nr": "60320", "navn": "Brandstation", "tema": "City", "aar": 2022, "dele": 540, "img": "img/60320.webp"}, {"nr": "60319", "navn": "Brandslukning og politijagt", "tema": "City", "aar": 2022, "dele": 295, "img": "img/60319.webp"}, {"nr": "60312", "navn": "Politibil", "tema": "City", "aar": 2022, "dele": 94, "img": "img/60312.webp"}, {"nr": "60304", "navn": "Vejplader", "tema": "City", "aar": 2021, "dele": 112, "img": "img/60304.webp"}, {"nr": "60292", "navn": "Bymidte", "tema": "City", "aar": 2021, "dele": 790, "img": "img/60292.webp"}, {"nr": "60291", "navn": "Familiehus", "tema": "City", "aar": 2021, "dele": 388, "img": "img/60291.webp"}, {"nr": "60253", "navn": "Isvogn", "tema": "City", "aar": 2020, "dele": 200, "img": "img/60253.webp"}, {"nr": "60252", "navn": "Byggeplads med bulldozer", "tema": "City", "aar": 2020, "dele": 126, "img": "img/60252.webp"}, {"nr": "60167", "navn": "Kystvagtens hovedkvarter", "tema": "City", "aar": 2017, "dele": 792, "img": "img/60167.webp"}, {"nr": "60150", "navn": "Pizzavogn", "tema": "City", "aar": 2016, "dele": 249, "img": "img/60150.webp"}, {"nr": "60132", "navn": "Servicestation", "tema": "City", "aar": 2016, "dele": 515, "img": "img/60132.webp"}, {"nr": "60044", "navn": "Mobil politienhed", "tema": "City", "aar": 2014, "dele": 375, "img": "img/60044.webp"}, {"nr": "42221", "navn": "NASA Artemis-løfteraket", "tema": "Technic", "aar": 2026, "dele": 632, "img": "img/42221.webp"}, {"nr": "42218", "navn": "John Deere 1470H-skovningsmaskine", "tema": "Technic", "aar": 2026, "dele": 117, "img": "img/42218.webp"}, {"nr": "42166", "navn": "NEOM McLaren Extreme E-racerbil", "tema": "Technic", "aar": 2024, "dele": 252, "img": "img/42166.webp"}, {"nr": "31379", "navn": "Farlig dinosaur", "tema": "Creator", "aar": 2026, "dele": 283, "img": "img/31379.webp"}, {"nr": "31134", "navn": "Rumfærge", "tema": "Creator", "aar": 2023, "dele": 144, "img": "img/31134.webp"}, {"nr": "30709", "navn": "Ferrari 499P-hyperbil", "tema": "Speed Champions", "aar": 2025, "dele": 62, "img": "img/30709.webp"}, {"nr": "30701", "navn": "Markblomster", "tema": "Andet", "aar": 2025, "dele": 77, "img": "img/30701.webp"}, {"nr": "10927", "navn": "Pizzabod", "tema": "Duplo", "aar": 2020, "dele": 18, "img": "img/10927.webp"}, {"nr": "10906", "navn": "Tropeø", "tema": "Duplo", "aar": 2019, "dele": 73, "img": "img/10906.webp"}, {"nr": "10882", "navn": "Togspor", "tema": "Duplo", "aar": 2018, "dele": 23, "img": "img/10882.webp"}, {"nr": "10875", "navn": "Godstog", "tema": "Duplo", "aar": 2018, "dele": 105, "img": "img/10875.webp"}, {"nr": "10872", "navn": "Togbro og spor", "tema": "Duplo", "aar": 2018, "dele": 26, "img": "img/10872.webp"}, {"nr": "10870", "navn": "Dyr på bondegården", "tema": "Duplo", "aar": 2018, "dele": 16, "img": "img/10870.webp"}, {"nr": "10869", "navn": "Eventyr på bondegården", "tema": "Duplo", "aar": 2018, "dele": 104, "img": "img/10869.webp"}, {"nr": "10868", "navn": "Ponystald", "tema": "Duplo", "aar": 2018, "dele": 59, "img": "img/10868.webp"}, {"nr": "10848", "navn": "My First Bricks", "tema": "Duplo", "aar": "", "dele": 0, "img": "img/10848.webp"}, {"nr": "10443", "navn": "Første gang i lufthavnen", "tema": "Duplo", "aar": 2025, "dele": 23, "img": "img/10443.webp"}];
+const THEMES = {City:"city",Duplo:"duplo",Creator:"creator",Technic:"technic"};
+const tk = t => THEMES[t] || "andet";
+const fmt = n => n.toLocaleString("da-DK");
+const $ = id => document.getElementById(id);
+let tema = "Alle";
+
+$("sSaet").textContent = SETS.length;
+$("sDele").textContent = fmt(SETS.reduce((s,x)=>s+(+x.dele||0),0));
+$("sStor").textContent = fmt(Math.max(0,...SETS.map(x=>+x.dele||0)));
+
+const countBy = l => l.reduce((m,x)=>(m[x.tema]=(m[x.tema]||0)+1,m),{});
+const all = countBy(SETS);
+const order = Object.keys(all).sort((a,b)=>all[b]-all[a]);
+$("chips").innerHTML = ["Alle",...order].map(t=>
+  `<button class="chip" id="chip-${t}" data-t="${t}">${t}<i></i></button>`).join("");
+$("chips").addEventListener("click",e=>{
+  const b=e.target.closest(".chip"); if(!b || b.disabled) return;
+  tema=b.dataset.t; render();
+});
+$("sort").addEventListener("change",render);
+$("q").addEventListener("input",render);
+$("q").addEventListener("keydown",e=>{ if(e.key==="Escape"){ $("q").value=""; render(); } });
+$("ryd").addEventListener("click",()=>{ $("q").value=""; render(); $("q").focus(); });
+
+const esc = s => String(s??"").replace(/[&<>"]/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]));
+
+function render(){
+  // "60337-1" og "60 337" behandles som 60337
+  const q = $("q").value.trim().toLowerCase().replace(/^(\d[\d\s]*?)\s*-\s*\d$/,"$1").replace(/^([\d\s]+)$/,m=>m.replace(/\s/g,""));
+  $("ryd").hidden = !q;
+  // Temaernes tal følger søgningen; temaer uden træf gøres grå
+  const found = q ? SETS.filter(x => x.nr.includes(q) || x.navn.toLowerCase().includes(q)) : SETS;
+  const c = countBy(found);
+  // Har det valgte tema ingen træf i søgningen, vises alle træf i stedet
+  const vis = (tema==="Alle" || c[tema]) ? tema : "Alle";
+  document.querySelectorAll(".chip").forEach(b=>{
+    const t=b.dataset.t, n = t==="Alle" ? found.length : (c[t]||0);
+    b.querySelector("i").textContent = n;
+    b.disabled = n===0;
+    b.setAttribute("aria-pressed", t===vis);
+  });
+  let list = found.filter(x => vis==="Alle" || x.tema===vis);
+  const s = $("sort").value;
+  list.sort(s==="dele"?(a,b)=>b.dele-a.dele : s==="nr"?(a,b)=>a.nr.localeCompare(b.nr)
+          : s==="navn"?(a,b)=>a.navn.localeCompare(b.navn,"da") : (a,b)=>b.aar-a.aar||b.dele-a.dele);
+
+  const svar = $("svar");
+  // Svar Ja/Nej fra 4 cifre (sætnumre har oftest 5, men kan have 4-7)
+  const tjek = /^\d{4,}$/.test(q);
+  const hit = tjek && SETS.find(x=>x.nr===q);
+  if (tjek) {
+    svar.hidden = false;
+    svar.className = hit ? "ja" : "nej";
+    svar.textContent = hit ? `Ja, Valdemar har ${q} – ${hit.navn}.` : `Nej, ${q} er ikke i samlingen endnu. Det kan være en god gave!`;
+  } else svar.hidden = true;
+
+  $("count").textContent = q ? `${list.length} sæt passer til "${$("q").value.trim()}"${vis==="Alle"?"":" i "+vis}`
+    : list.length===SETS.length ? `Viser alle ${SETS.length} sæt` : `Viser ${list.length} af ${SETS.length} sæt`;
+  $("grid").innerHTML = list.length ? list.map(x=>{
+    const k=tk(x.tema);
+    return `<article class="card" style="--tint:var(--t-${k});--tc:var(--c-${k})">
+      <div class="pic"><img src="${x.img}" alt="${esc(x.navn)}" loading="lazy"></div>
+      <div class="info">
+        <span class="brick">${esc(x.nr)}</span>
+        <h2 class="name">${esc(x.navn)}</h2>
+        <div class="meta"><span class="tag">${esc(x.tema)}</span><span>${esc(x.aar)}</span><span class="dele"><b>${fmt(+x.dele)}</b> klodser</span></div>
+        <a class="btn" href="https://www.lego.com/da-dk/service/building-instructions/${esc(x.nr)}" target="_blank" rel="noopener">Byggevejledning ↗</a>
+      </div></article>`;}).join("")
+    : `<p class="empty">Ingen sæt passer. Prøv et andet tema eller nummer.</p>`;
+}
+render();
+</script>
+
+</body></html>
