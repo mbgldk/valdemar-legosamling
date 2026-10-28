@@ -80,6 +80,8 @@ select{font:inherit;font-size:.95rem;padding:8px 10px;border-radius:10px;border:
 .dele b{color:var(--ink)}
 .btn{margin-top:auto;display:flex;align-items:center;justify-content:center;gap:6px;text-decoration:none;font-weight:700;font-size:.92rem;background:var(--blue);color:#fff;border-radius:10px;padding:10px 8px;min-height:44px}
 .btn:hover{filter:brightness(1.08)}
+.btn.off{background:var(--line);color:var(--muted);cursor:default}
+.btn.off:hover{filter:none}
 .empty{grid-column:1/-1;text-align:center;color:var(--muted);padding:40px 10px}
 footer{color:var(--muted);font-size:.85rem;padding-block:0 32px}
 @media (max-width:420px){.name{font-size:1rem}.info{padding:10px 11px 12px}.btn{font-size:.85rem}}
@@ -189,7 +191,9 @@ function render(){
         <span class="brick">${esc(x.nr)}</span>
         <h2 class="name">${esc(x.navn)}</h2>
         <div class="meta"><span class="tag">${esc(x.tema)}</span><span>${esc(x.aar)}</span><span class="dele"><b>${fmt(+x.dele)}</b> klodser</span></div>
-        <a class="btn" href="https://www.lego.com/da-dk/service/building-instructions/${esc(x.nr)}" target="_blank" rel="noopener">Byggevejledning ↗</a>
+        ${x.vejl===false
+          ? `<span class="btn off" aria-disabled="true">Ingen vejledning</span>`
+          : `<a class="btn" href="https://www.lego.com/da-dk/service/building-instructions/${esc(x.nr)}" target="_blank" rel="noopener">Byggevejledning ↗</a>`}
       </div></article>`;}).join("")
     : `<p class="empty">Ingen sæt passer. Prøv et andet tema eller nummer.</p>`;
 }

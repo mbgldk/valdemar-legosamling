@@ -31,7 +31,9 @@ for r in range(5, ws.max_row + 1):
     aar = val(r, "År")
     x = {"nr": nr, "navn": val(r, "Navn") or nr, "tema": val(r, "Tema") or "Andet",
          "aar": int(aar) if isinstance(aar, (int, float)) else "",
-         "dele": int(dele) if isinstance(dele, (int, float)) else 0, "img": ""}
+         "dele": int(dele) if isinstance(dele, (int, float)) else 0, "img": "",
+         # tom PDF 1 = LEGO har ingen vejledning til sættet (se Note i arket)
+         "vejl": bool(str(val(r, "PDF 1") or "").strip())}
     p = imgs.get(nr)
     if p:
         fn = f"{nr}.webp"
